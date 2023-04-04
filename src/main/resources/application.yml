@@ -1,0 +1,38 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+spring:
+  application:
+    name: sys-kilo-user-aggregator
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      auto-offset-reset: latest
+      group-id: ${spring.application.name}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  data:
+    cassandra:
+      local-datacenter: datacenter1
+      port: 9042
+      contact-points: localhost
+      keyspace-name: examplesys
+logging:
+  file:
+    path: .
+    name: spring-boot.log
+  level:
+    org:
+      springframework:
+        web: DEBUG
+server:
+  port: ${PORT:8080}
+topic:
+  name:
+    consumer: user
+
